@@ -139,15 +139,19 @@ class FlutterSecureStorageWeb extends FlutterSecureStoragePlatform {
     if (cypherText == null) {
       return null;
     }
-
+    print(cypherText);
     final parts = cypherText.split(".");
-
+    print(parts);
     final iv = base64Decode(parts[0]);
+    print(iv);
     final algorithm = _getAlgorithm(iv);
+    print(algorithm);
 
     final decryptionKey = await _getEncryptionKey(algorithm, options);
+    print(decryptionKey);
 
     final value = base64Decode(parts[1]);
+    print(value);
 
     final decryptedContent = await js_util.promiseToFuture<ByteBuffer>(
       crypto.decrypt(

@@ -2,6 +2,7 @@ library flutter_secure_storage_web;
 
 import 'dart:convert';
 import 'dart:html' as html;
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:js_util' as js_util;
 
@@ -139,19 +140,20 @@ class FlutterSecureStorageWeb extends FlutterSecureStoragePlatform {
     if (cypherText == null) {
       return null;
     }
-    print(cypherText);
+    final random = Random().nextInt(100);
+    print('$random: $cypherText');
     final parts = cypherText.split(".");
-    print(parts);
+    print('$random: $parts');
     final iv = base64Decode(parts[0]);
-    print(iv);
+    print('$random: $iv');
     final algorithm = _getAlgorithm(iv);
-    print(algorithm);
+    print('$random: $algorithm');
 
     final decryptionKey = await _getEncryptionKey(algorithm, options);
-    print(decryptionKey);
+    print('$random: $decryptionKey');
 
     final value = base64Decode(parts[1]);
-    print(value);
+    print('$random: $value');
 
     final decryptedContent = await js_util.promiseToFuture<ByteBuffer>(
       crypto.decrypt(
